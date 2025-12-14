@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { LandingContent } from '../../templates/LandingContent';
 import { LoginContent } from '../../templates/LoginContent';
 import { SignUpContent } from '../../templates/SignUpContent';
+import { ForgotPasswordContent } from '../../templates/ForgotPasswordContent';
 import { HomePage } from '../../../pages/HomePage'; // Importing HomePage as App Content
 import { useSwipe } from '../../../hooks/useSwipe';
 
 export const MobileSectionManager: React.FC = () => {
     const navigate = useNavigate();
-    const [activeSection, setActiveSection] = useState<'landing' | 'login' | 'signup' | 'app'>('landing');
+    const [activeSection, setActiveSection] = useState<'landing' | 'login' | 'signup' | 'forgot-password' | 'app'>('landing');
 
     // Swipe handlers attached to the slider container or specific areas
     const swipeHandlers = useSwipe({
@@ -41,10 +42,23 @@ export const MobileSectionManager: React.FC = () => {
     if (activeSection === 'signup') {
         return (
             <div className="animate-in fade-in zoom-in-95 duration-300 w-full h-full absolute inset-0 z-50 bg-zinc-950">
-                <SignUpContent 
+                <SignUpContent
                     onBack={() => setActiveSection('landing')}
                     onNavigateLogin={() => setActiveSection('login')}
                     onSignUpSuccess={handleLoginSuccess}
+                />
+            </div>
+        );
+    }
+
+    if (activeSection === 'forgot-password') {
+        return (
+            <div className="animate-in fade-in zoom-in-95 duration-300 w-full h-full absolute inset-0 z-50 bg-zinc-950">
+                <ForgotPasswordContent
+                    onBack={() => setActiveSection('login')}
+                    onResetSuccess={() => {
+                        setActiveSection('login');
+                    }}
                 />
             </div>
         );
@@ -75,6 +89,7 @@ export const MobileSectionManager: React.FC = () => {
                         onLoginSuccess={handleLoginSuccess}
                         onBack={() => setActiveSection('landing')}
                         onNavigateSignup={() => setActiveSection('signup')}
+                        onForgotPassword={() => setActiveSection('forgot-password')}
                     />
                 </div>
             </div>

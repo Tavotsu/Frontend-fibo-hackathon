@@ -10,6 +10,7 @@ export const LoginPage: React.FC = () => {
             onLoginSuccess={() => navigate('/app')}
             onBack={() => navigate('/')}
             onNavigateSignup={() => navigate('/signup')}
+            onForgotPassword={() => navigate('/forgot-password')}
         />
     );
 };

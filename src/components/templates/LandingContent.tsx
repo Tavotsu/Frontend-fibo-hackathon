@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ArrowRight, Aperture, Youtube, Zap, Monitor, ChevronLeft } from 'lucide-react';
 import { Button } from '../atoms/actions/Button';
+import { useTheme } from '../../contexts/ThemeContext';
+import { ThemeToggle } from '../molecules/toggles/ThemeToggle';
 
 interface LandingContentProps {
     onNavigateLogin: () => void;
@@ -18,6 +20,7 @@ export const LandingContent: React.FC<LandingContentProps> = ({
     // but kept in signature if needed for other visual cues or until cleaned up
     isExiting = false
 }) => {
+    const { isDarkMode, toggleTheme } = useTheme();
     return (
         <div
             className="min-h-screen w-full bg-zinc-950 text-zinc-100 font-sans selection:bg-blue-500/30 relative overflow-hidden flex flex-col touch-none"
@@ -39,6 +42,7 @@ export const LandingContent: React.FC<LandingContentProps> = ({
                     <span className="font-bold text-xl tracking-tight text-white">BrandAI</span>
                 </div>
                 <div className="flex items-center gap-4 hidden md:flex">
+                    <ThemeToggle isDarkMode={isDarkMode} toggle={toggleTheme} />
                     <Button
                         variant="ghost"
                         onClick={onNavigateLogin}
@@ -75,7 +79,7 @@ export const LandingContent: React.FC<LandingContentProps> = ({
                         onClick={onNavigateSignup}
                         className="h-14 px-8 text-lg rounded-full shadow-[0_0_30px_rgba(var(--primary),0.3)] hover:shadow-[0_0_50px_rgba(var(--primary),0.5)] transition-all duration-300 bg-white text-black hover:bg-zinc-200 border-none font-bold"
                     >
-                        Start Branding Free
+                        Register Now
                         <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                     <Button
@@ -115,7 +119,7 @@ export const LandingContent: React.FC<LandingContentProps> = ({
             </main>
 
             <footer className="w-full text-center py-8 text-zinc-600 text-xs z-10">
-                © 2025 Marketech Inc. All rights reserved.
+                © 2025 BrandAI Inc. All rights reserved.
             </footer>
         </div>
     );

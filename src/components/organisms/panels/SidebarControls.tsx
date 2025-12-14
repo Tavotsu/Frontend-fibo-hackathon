@@ -1,5 +1,5 @@
 import React from 'react';
-import { PanelLeftClose, PanelLeftOpen, Cpu, Layers, Send, Loader2, AlertCircle } from 'lucide-react';
+import { PanelLeftClose, PanelLeftOpen, Cpu, Layers, Send, Loader2, AlertCircle, ChevronLeft } from 'lucide-react';
 import { Button } from '../../atoms/actions/Button';
 import { Textarea } from '../../atoms/inputs/Textarea';
 import { ImageUploader } from '../../molecules/selectors/ImageUploader';
@@ -91,7 +91,7 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                                 <Cpu className="w-5 h-5 text-white" />
                             </div>
                             <div>
-                                <h1 className="font-bold text-lg leading-none tracking-tight">Marketech</h1>
+                                <h1 className="font-bold text-lg leading-none tracking-tight">BrandAI</h1>
                                 <p className="text-[10px] text-zinc-400 font-medium tracking-wide">Modelo 0.1a</p>
                             </div>
                         </div>
@@ -174,6 +174,14 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                                 </span>
                             )}
                         </Button>
+                    </div>
+                    {/* Mobile Swipe Indicator Handle */}
+                    <div className="md:hidden absolute top-1/2 right-0 transform -translate-y-1/2 z-50 pointer-events-none">
+                        <div className="flex flex-col items-center justify-center animate-pulse">
+                            <div className="bg-zinc-800/80 backdrop-blur-md py-6 px-1 rounded-l-xl border border-r-0 border-zinc-700 shadow-lg flex items-center justify-center">
+                                <ChevronLeft className="w-4 h-4 text-zinc-400" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </aside>

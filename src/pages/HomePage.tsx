@@ -7,8 +7,12 @@ import { CAMERA_ANGLES } from '../components/molecules/selectors/CameraAngleSele
 import { startGenerationProcess } from '../services/geminiService';
 import { GeneratedImage, JobStatusResponse } from '../types';
 import { useSwipe } from '../hooks/useSwipe';
+import { useTheme } from '../contexts/ThemeContext';
 
 export const HomePage: React.FC = () => {
+    // Global Theme
+    const { isDarkMode, toggleTheme } = useTheme();
+
     // State
     const [prompt, setPrompt] = useState('');
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -24,7 +28,6 @@ export const HomePage: React.FC = () => {
     // UI State
     const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(true);
     const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(true);
-    const [isDarkMode, setIsDarkMode] = useState(true);
 
     // Derived state
     const activeImage = generatedImages.find(img => img.id === activeImageId) || generatedImages[0];
@@ -122,13 +125,13 @@ export const HomePage: React.FC = () => {
                 setJobStatus(status);
             });
 
-            console.log('[Marketech App] Generation results:', results);
+            console.log('[BrandAI App] Generation results:', results);
             if (results && results.length > 0) {
                 setGeneratedImages(prev => [...results, ...prev]);
                 setActiveImageId(results[0].id);
             }
         } catch (err: any) {
-            console.error('[Marketech App] Generation error:', err);
+            console.error('[BrandAI App] Generation error:', err);
             setError(err.message || "Error desconocido durante la generación.");
         } finally {
             setIsProcessing(false);
@@ -137,12 +140,12 @@ export const HomePage: React.FC = () => {
 
     return (
         <div className="h-screen w-full overflow-hidden touch-none" {...swipeHandlers}>
-            <MainLayout isDarkMode={isDarkMode}>
+            <MainLayout>
                 <SidebarControls
                     isOpen={isLeftSidebarOpen}
                     setIsOpen={handleSetLeftSidebar}
                     isDarkMode={isDarkMode}
-                    setIsDarkMode={setIsDarkMode}
+                    setIsDarkMode={() => toggleTheme()}
                     selectedImage={selectedImage}
                     setSelectedImage={setSelectedImage}
                     prompt={prompt}

@@ -8,12 +8,14 @@ interface LoginContentProps {
     onBack: () => void;
     // onNavigateSignup is optional now as we use Link directly for robust navigation
     onNavigateSignup?: () => void;
+    onForgotPassword?: () => void;
 }
 
 export const LoginContent: React.FC<LoginContentProps> = ({
     onLoginSuccess,
     onBack,
-    onNavigateSignup
+    onNavigateSignup,
+    onForgotPassword
 }) => {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -26,7 +28,7 @@ export const LoginContent: React.FC<LoginContentProps> = ({
             // Mock User Session
             localStorage.setItem('user_session', JSON.stringify({
                 name: "Usuario Demo",
-                email: "demo@marketech.ai",
+                email: "demo@brandai.com",
                 avatar: null
             }));
 
@@ -92,7 +94,13 @@ export const LoginContent: React.FC<LoginContentProps> = ({
                                 <input type="checkbox" className="rounded bg-zinc-800 border-zinc-700 text-primary focus:ring-0" />
                                 <span>Remember me</span>
                             </label>
-                            <a href="#" className="hover:text-primary transition-colors">Forgot password?</a>
+                            <button
+                                type="button"
+                                onClick={onForgotPassword}
+                                className="hover:text-primary transition-colors bg-transparent border-none p-0 cursor-pointer text-xs text-zinc-500"
+                            >
+                                Forgot password?
+                            </button>
                         </div>
 
                         <Button
@@ -105,6 +113,21 @@ export const LoginContent: React.FC<LoginContentProps> = ({
                                     <Loader2 className="w-4 h-4 animate-spin" /> Signing In...
                                 </span>
                             ) : "Sign In"}
+                        </Button>
+
+                        <div className="relative flex py-2 items-center">
+                            <div className="flex-grow border-t border-zinc-800"></div>
+                            <span className="flex-shrink-0 mx-4 text-zinc-600 text-xs">Or</span>
+                            <div className="flex-grow border-t border-zinc-800"></div>
+                        </div>
+
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={onLoginSuccess}
+                            className="w-full h-11 text-base font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50"
+                        >
+                            Continue as Guest
                         </Button>
                     </form>
 
