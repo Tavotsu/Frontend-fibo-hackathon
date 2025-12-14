@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Loader2, Lock, Mail } from 'lucide-react';
+import { ArrowLeft, Loader2, Lock, Mail, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../atoms/actions/Button';
 import { authService } from '../../services/authService';
@@ -19,14 +19,15 @@ export const LoginContent: React.FC<LoginContentProps> = ({
     onForgotPassword
 }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
+        setError(null);
 
         try {
             // Get email/password from form inputs
-            // Note: In a real app we'd use controlled inputs or refs, but here we can grab from e.target
             const form = e.target as HTMLFormElement;
             const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
             const passwordInput = form.querySelector('input[type="password"]') as HTMLInputElement;
@@ -35,9 +36,16 @@ export const LoginContent: React.FC<LoginContentProps> = ({
 
             // On success
             onLoginSuccess();
-        } catch (error) {
-            console.error("Login failed:", error);
-            alert("Login failed! Check console.");
+        } catch (err: any) {
+            console.error("Login failed:", err);
+            const msg = err.message || "";
+            if (msg.includes("Email not confirmed")) {
+                setError("Falta confirmación de correo electrónico. Revisa tu bandeja de entrada.");
+            } else if (msg.includes("Invalid login credentials")) {
+                setError("Credenciales incorrectas.");
+            } else {
+                setError("Error al iniciar sesión. Inténtalo de nuevo.");
+            }
         } finally {
             setIsLoading(false);
         }
@@ -108,6 +116,13 @@ export const LoginContent: React.FC<LoginContentProps> = ({
                                 Forgot password?
                             </button>
                         </div>
+
+                        {error && (
+                            <div className="mt-4 p-3 bg-red-900/20 border border-red-900/50 rounded-lg flex items-start gap-2 text-xs text-red-200 animate-in fade-in slide-in-from-top-1">
+                                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                                <span>{error}</span>
+                            </div>
+                        )}
 
                         <Button
                             type="submit"
