@@ -9,10 +9,15 @@ interface StatusIndicatorProps {
 
 export const StatusIndicator: React.FC<StatusIndicatorProps> = ({ isProcessing, activeImage }) => {
     return (
-        <div className="flex items-center gap-4 text-sm text-zinc-500">
-            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800">
-                <MonitorPlay className="w-3.5 h-3.5" />
-                {isProcessing ? 'Procesando Solicitud' : activeImage ? 'Visualización Activa' : 'Esperando Entrada'}
+        <div className="flex items-center gap-2 md:gap-4 text-xs md:text-sm text-zinc-500">
+            <span className="flex items-center gap-1 md:gap-1.5 px-2 md:px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] md:text-sm">
+                <MonitorPlay className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                <span className="hidden sm:inline">
+                    {isProcessing ? 'Procesando Solicitud' : activeImage ? 'Visualización Activa' : 'Esperando Entrada'}
+                </span>
+                <span className="sm:hidden">
+                    {isProcessing ? 'Procesando' : activeImage ? 'Activo' : 'Esperando'}
+                </span>
             </span>
             {activeImage && !isProcessing && (
                 <span className="hidden md:inline-block max-w-[300px] truncate opacity-50">

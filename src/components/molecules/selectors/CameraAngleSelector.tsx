@@ -67,8 +67,8 @@ export const CameraAngleSelector: React.FC<CameraAngleSelectorProps> = ({ select
                         disabled={isProcessing}
                         className={`flex items-center p-2.5 rounded-md border transition-all text-left group
               ${selectedAngle === angle.id
-                                ? 'bg-primary/10 border-primary text-primary shadow-[0_0_10px_rgba(var(--primary),0.2)]'
-                                : 'bg-zinc-800/50 border-transparent hover:bg-zinc-800 hover:border-zinc-700 text-zinc-400'}
+                                ? 'bg-primary/20 border-primary text-white shadow-[0_0_10px_rgba(var(--primary),0.2)]'
+                                : 'bg-zinc-800/50 border-transparent hover:bg-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-zinc-300'}
               ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}
             `}
                     >
