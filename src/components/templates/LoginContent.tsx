@@ -65,7 +65,7 @@ export const LoginContent: React.FC<LoginContentProps> = ({
                             <Lock className="w-6 h-6 text-white" />
                         </div>
                         <h2 className="text-2xl font-bold text-white tracking-tight">Welcome Back</h2>
-                        <p className="text-zinc-400 text-sm mt-1">Sign in to your BrandAI account</p>
+                        <p className="text-zinc-400 text-sm mt-1">Sign in to your BrandLab account</p>
                     </div>
 
                     <form onSubmit={handleLogin} className="space-y-4">

@@ -73,7 +73,7 @@ export const SignUpContent: React.FC<SignUpContentProps> = ({
                             <User className="w-6 h-6 text-white" />
                         </div>
                         <h2 className="text-2xl font-bold text-white tracking-tight">Create Account</h2>
-                        <p className="text-zinc-400 text-sm mt-1">Join BrandAI today</p>
+                        <p className="text-zinc-400 text-sm mt-1">Join BrandLab today</p>
                     </div>
 
                     <form onSubmit={handleSignUp} className="space-y-4">

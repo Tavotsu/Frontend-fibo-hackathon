@@ -91,7 +91,7 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                                 <Cpu className="w-5 h-5 text-white" />
                             </div>
                             <div>
-                                <h1 className="font-bold text-lg leading-none tracking-tight">BrandAI</h1>
+                                <h1 className="font-bold text-lg leading-none tracking-tight">BrandLab</h1>
                                 <p className="text-[10px] text-zinc-400 font-medium tracking-wide">Modelo 0.1a</p>
                             </div>
                         </div>

@@ -133,7 +133,7 @@ export const HomePage: React.FC = () => {
     });
 
     const handleSubmit = async () => {
-        console.log('[BrandAI] handleSubmit called');
+        console.log('[BrandLab] handleSubmit called');
 
         if (!prompt.trim() || !selectedImage) {
             setIsLeftSidebarOpen(false); // Close sidebar to show error on canvas if needed, or maybe keep it.
@@ -164,13 +164,13 @@ export const HomePage: React.FC = () => {
                 setJobStatus(status);
             });
 
-            console.log('[BrandAI App] Generation results:', results);
+            console.log('[BrandLab App] Generation results:', results);
             if (results && results.length > 0) {
                 setGeneratedImages(prev => [...results, ...prev]);
                 setActiveImageId(results[0].id);
             }
         } catch (err: any) {
-            console.error('[BrandAI App] Generation error:', err);
+            console.error('[BrandLab App] Generation error:', err);
             setError(err.message || "Error desconocido durante la generación.");
         } finally {
             setIsProcessing(false);

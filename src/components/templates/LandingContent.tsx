@@ -39,7 +39,7 @@ export const LandingContent: React.FC<LandingContentProps> = ({
                     <div className="p-2 bg-gradient-to-br from-blue-600 to-blue-500 rounded-lg shadow-lg shadow-blue-500/20">
                         <Aperture className="w-6 h-6 text-white" />
                     </div>
-                    <span className="font-bold text-xl tracking-tight text-white">BrandAI</span>
+                    <span className="font-bold text-xl tracking-tight text-white">BrandLab</span>
                 </div>
                 <div className="flex items-center gap-4 hidden md:flex">
                     <ThemeToggle isDarkMode={isDarkMode} toggle={toggleTheme} />
@@ -119,7 +119,7 @@ export const LandingContent: React.FC<LandingContentProps> = ({
             </main>
 
             <footer className="w-full text-center py-8 text-zinc-600 text-xs z-10">
-                © 2025 BrandAI Inc. All rights reserved.
+                © 2025 BrandLab Inc. All rights reserved.
             </footer>
         </div>
     );
