@@ -154,7 +154,7 @@ export const HomePage: React.FC = () => {
                     isProcessing={isProcessing}
                     error={error}
                     onSubmit={handleSubmit}
-                    showToggle={!isRightSidebarOpen}
+                    showToggle={true}
                 />
 
                 <MainCanvas
@@ -170,7 +170,7 @@ export const HomePage: React.FC = () => {
                     activeImageId={activeImageId}
                     setActiveImageId={setActiveImageId}
                     isProcessing={isProcessing}
-                    showToggle={!isLeftSidebarOpen}
+                    showToggle={true}
                 />
             </MainLayout>
         </div>

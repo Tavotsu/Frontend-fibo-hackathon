@@ -6,6 +6,7 @@ import { ImageUploader } from '../../molecules/selectors/ImageUploader';
 import { ThemeToggle } from '../../molecules/toggles/ThemeToggle';
 import { CameraAngleSelector } from '../../molecules/selectors/CameraAngleSelector';
 import { QuantitySelector } from '../../molecules/selectors/QuantitySelector';
+import { UserProfile } from '../../molecules/UserProfile';
 
 interface SidebarControlsProps {
     isOpen: boolean;
@@ -95,7 +96,11 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                             </div>
                         </div>
 
-                        <ThemeToggle isDarkMode={isDarkMode} toggle={() => setIsDarkMode(!isDarkMode)} />
+                        <div className="flex items-center gap-1">
+                            <ThemeToggle isDarkMode={isDarkMode} toggle={() => setIsDarkMode(!isDarkMode)} />
+                            <div className="w-px h-4 bg-zinc-800 mx-1"></div>
+                            <UserProfile />
+                        </div>
                     </div>
 
                     {/* Scrollable Content */}

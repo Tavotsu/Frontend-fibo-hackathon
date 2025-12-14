@@ -23,6 +23,13 @@ export const LoginContent: React.FC<LoginContentProps> = ({
 
         // Simulate auth delay
         setTimeout(() => {
+            // Mock User Session
+            localStorage.setItem('user_session', JSON.stringify({
+                name: "Usuario Demo",
+                email: "demo@marketech.ai",
+                avatar: null
+            }));
+
             setIsLoading(false);
             onLoginSuccess();
         }, 1500);

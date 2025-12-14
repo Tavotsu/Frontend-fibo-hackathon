@@ -1,4 +1,4 @@
-```javascript
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LandingContent } from '../../templates/LandingContent';
@@ -81,4 +81,4 @@ export const MobileSectionManager: React.FC = () => {
         </div>
     );
 };
-```
+

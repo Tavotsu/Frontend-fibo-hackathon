@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Loader2, Lock, Mail, User } from 'lucide-react';
+import { ArrowLeft, Loader2, Lock, Mail, User, AlertCircle } from 'lucide-react';
 import { Button } from '../atoms/actions/Button';
 
 interface SignUpContentProps {
@@ -15,9 +15,33 @@ export const SignUpContent: React.FC<SignUpContentProps> = ({
     onSignUpSuccess
 }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
+
+    const validateForm = () => {
+        if (fullName.length < 4) {
+            setError("El nombre debe tener al menos 4 caracteres.");
+            return false;
+        }
+
+        // 8 chars, 1 number, 1 lowercase, 1 special char
+        const passwordRegex = /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+        if (!passwordRegex.test(password)) {
+            setError("La contraseña debe tener al menos 8 caracteres, una minúscula, un número y un carácter especial.");
+            return false;
+        }
+
+        return true;
+    };
 
     const handleSignUp = (e: React.FormEvent) => {
         e.preventDefault();
+        setError(null);
+
+        if (!validateForm()) return;
+
         setIsLoading(true);
 
         // Simulate auth delay
@@ -61,6 +85,8 @@ export const SignUpContent: React.FC<SignUpContentProps> = ({
                                     type="text"
                                     required
                                     placeholder="John Doe"
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
                                     className="w-full h-10 bg-zinc-950/50 border border-zinc-800 rounded-lg pl-10 pr-3 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all outline-none"
                                 />
                             </div>
@@ -74,6 +100,8 @@ export const SignUpContent: React.FC<SignUpContentProps> = ({
                                     type="email"
                                     required
                                     placeholder="name@company.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     className="w-full h-10 bg-zinc-950/50 border border-zinc-800 rounded-lg pl-10 pr-3 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all outline-none"
                                 />
                             </div>
@@ -87,6 +115,8 @@ export const SignUpContent: React.FC<SignUpContentProps> = ({
                                     type="password"
                                     required
                                     placeholder="Create a password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     className="w-full h-10 bg-zinc-950/50 border border-zinc-800 rounded-lg pl-10 pr-3 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all outline-none"
                                 />
                             </div>
@@ -95,6 +125,13 @@ export const SignUpContent: React.FC<SignUpContentProps> = ({
                         <div className="text-xs text-zinc-500 pt-2">
                             By creating an account, you agree to our <a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a> and <a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a>.
                         </div>
+
+                        {error && (
+                            <div className="p-3 bg-red-900/20 border border-red-900/50 rounded-lg flex items-start gap-2 text-xs text-red-200 animate-in fade-in slide-in-from-top-1">
+                                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                                <span>{error}</span>
+                            </div>
+                        )}
 
                         <Button
                             type="submit"
