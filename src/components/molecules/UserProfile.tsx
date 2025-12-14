@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { User, LogOut, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { authService } from '../../services/authService';
 
 interface UserProfileProps {
     className?: string;
@@ -13,17 +14,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({ className }) => {
     const [user, setUser] = useState<{ name: string; email: string } | null>(null);
 
     useEffect(() => {
-        // Load user from local storage
-        const storedUser = localStorage.getItem('user_session');
-        if (storedUser) {
-            try {
-                setUser(JSON.parse(storedUser));
-            } catch (e) {
-                console.error("Failed to parse user session", e);
-            }
-        } else {
-            // Fallback for demo/existing session without re-login
-            setUser({ name: "Usuario", email: "guest@marketech.ai" });
+        const currentUser = authService.getUser();
+        if (currentUser) {
+            setUser({
+                name: currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || "Usuario",
+                email: currentUser.email || ""
+            });
         }
     }, []);
 
@@ -42,8 +38,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ className }) => {
         };
     }, [isOpen]);
 
-    const handleLogout = () => {
-        localStorage.removeItem('user_session');
+    const handleLogout = async () => {
+        await authService.logout();
         navigate('/login');
     };
 
