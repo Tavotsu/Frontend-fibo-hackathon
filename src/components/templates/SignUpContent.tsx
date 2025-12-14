@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Loader2, Lock, Mail, User, AlertCircle } from 'lucide-react';
 import { Button } from '../atoms/actions/Button';
+import { authService } from '../../services/authService';
 
 interface SignUpContentProps {
     onBack: () => void;
@@ -36,7 +37,7 @@ export const SignUpContent: React.FC<SignUpContentProps> = ({
         return true;
     };
 
-    const handleSignUp = (e: React.FormEvent) => {
+    const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
 
@@ -44,11 +45,15 @@ export const SignUpContent: React.FC<SignUpContentProps> = ({
 
         setIsLoading(true);
 
-        // Simulate auth delay
-        setTimeout(() => {
-            setIsLoading(false);
+        try {
+            await authService.register(email, password, fullName);
             onSignUpSuccess();
-        }, 1500);
+        } catch (err: any) {
+            console.error("Signup failed:", err);
+            setError(err.message || "Registration failed. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (

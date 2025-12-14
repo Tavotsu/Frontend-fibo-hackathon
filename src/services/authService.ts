@@ -1,71 +1,82 @@
+import { supabase } from "../lib/supabaseClient";
 import { User } from "../types";
 
-const API_BASE_URL = "http://localhost:8000";
-
-interface LoginResponse {
-    access_token: string;
-    token_type: string;
-}
-
 export const authService = {
-    async login(email: string, password: string): Promise<LoginResponse> {
-        const formData = new URLSearchParams();
-        formData.append('username', email);
-        formData.append('password', password);
-
-        const res = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'ngrok-skip-browser-warning': '1',
-            },
-            body: formData
+    async login(email: string, password: string): Promise<{ access_token: string; user: any }> {
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password
         });
 
-        if (!res.ok) {
-            const errorData = await res.json().catch(() => ({ detail: 'Login failed' }));
-            throw new Error(errorData.detail || 'Login failed');
+        if (error) {
+            throw new Error(error.message);
         }
 
-        const data = await res.json();
-        if (data.access_token) {
-            localStorage.setItem('auth_token', data.access_token);
+        if (data.session) {
+            localStorage.setItem('auth_token', data.session.access_token);
+            // Optional: Store user info if needed
+            localStorage.setItem('user_info', JSON.stringify(data.user));
         }
-        return data;
+
+        return {
+            access_token: data.session?.access_token || "",
+            user: data.user
+        };
     },
 
-    async register(email: string, password: string, fullName: string): Promise<User> {
-        const res = await fetch(`${API_BASE_URL}/api/v1/auth/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'ngrok-skip-browser-warning': '1',
-            },
-            body: JSON.stringify({
-                email,
-                password,
-                full_name: fullName
-            })
+    async register(email: string, password: string, fullName: string): Promise<any> {
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                data: {
+                    full_name: fullName
+                }
+            }
         });
 
-        if (!res.ok) {
-            const errorData = await res.json().catch(() => ({ detail: 'Registration failed' }));
-            throw new Error(errorData.detail || 'Registration failed');
+        if (error) {
+            throw new Error(error.message);
         }
 
-        return res.json();
+        // If session exists (auto-login enabled in Supabase), save token
+        if (data.session) {
+            localStorage.setItem('auth_token', data.session.access_token);
+        }
+
+        return data.user;
     },
 
-    logout() {
+    async resetPassword(email: string): Promise<void> {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: window.location.origin + '/reset-password', // Update if you have a route
+        });
+
+        if (error) {
+            throw new Error(error.message);
+        }
+    },
+
+    async logout() {
+        await supabase.auth.signOut();
         localStorage.removeItem('auth_token');
-        localStorage.removeItem('user_session'); // Legacy mock cleanup
+        localStorage.removeItem('user_info');
     },
 
     getToken(): string | null {
+        // Primary source: LocalStorage (synced by login)
+        // Fallback: Check Supabase session (async, not doable here easily without refactor)
         return localStorage.getItem('auth_token');
     },
 
     isAuthenticated(): boolean {
         return !!localStorage.getItem('auth_token');
+    },
+
+    // Helper to get current user info
+    getUser() {
+        const userStr = localStorage.getItem('user_info');
+        return userStr ? JSON.parse(userStr) : null;
     }
 };
+
