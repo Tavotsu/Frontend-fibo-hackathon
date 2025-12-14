@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowLeft, Loader2, Lock, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../atoms/actions/Button';
+import { authService } from '../../services/authService';
 
 interface LoginContentProps {
     onLoginSuccess: () => void;
@@ -19,22 +20,27 @@ export const LoginContent: React.FC<LoginContentProps> = ({
 }) => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
 
-        // Simulate auth delay
-        setTimeout(() => {
-            // Mock User Session
-            localStorage.setItem('user_session', JSON.stringify({
-                name: "Usuario Demo",
-                email: "demo@brandai.com",
-                avatar: null
-            }));
+        try {
+            // Get email/password from form inputs
+            // Note: In a real app we'd use controlled inputs or refs, but here we can grab from e.target
+            const form = e.target as HTMLFormElement;
+            const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+            const passwordInput = form.querySelector('input[type="password"]') as HTMLInputElement;
 
-            setIsLoading(false);
+            await authService.login(emailInput.value, passwordInput.value);
+
+            // On success
             onLoginSuccess();
-        }, 1500);
+        } catch (error) {
+            console.error("Login failed:", error);
+            alert("Login failed! Check console.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (

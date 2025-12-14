@@ -4,7 +4,7 @@ import { GallerySidebar } from '../components/organisms/panels/GallerySidebar';
 import { MainCanvas } from '../components/organisms/canvas/MainCanvas';
 import { MainLayout } from '../components/templates/MainLayout';
 import { CAMERA_ANGLES } from '../components/molecules/selectors/CameraAngleSelector';
-import { startGenerationProcess } from '../services/geminiService';
+import { startGenerationProcess, fetchUserHistory } from '../services/geminiService';
 import { GeneratedImage, JobStatusResponse } from '../types';
 import { useSwipe } from '../hooks/useSwipe';
 import { useTheme } from '../contexts/ThemeContext';
@@ -24,6 +24,45 @@ export const HomePage: React.FC = () => {
     const [generatedImages, setGeneratedImages] = useState<GeneratedImage[]>([]);
     const [activeImageId, setActiveImageId] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+
+    // Initial History Load
+    useEffect(() => {
+        const loadHistory = async () => {
+            try {
+                const history = await fetchUserHistory();
+                if (history && history.length > 0) {
+                    setGeneratedImages(prev => {
+                        const existingIds = new Set(prev.map(img => img.id));
+                        const newImages = history.filter(img => !existingIds.has(img.id));
+                        return [...newImages, ...prev];
+                    });
+                }
+            } catch (e) {
+                console.error("Failed to load history:", e);
+            }
+        };
+        loadHistory();
+    }, []);
+
+    // Initial History Load
+    useEffect(() => {
+        const loadHistory = async () => {
+            try {
+                const history = await fetchUserHistory();
+                if (history && history.length > 0) {
+                    setGeneratedImages(prev => {
+                        // Avoid duplicates if React Strict Mode runs twice
+                        const existingIds = new Set(prev.map(img => img.id));
+                        const newImages = history.filter(img => !existingIds.has(img.id));
+                        return [...newImages, ...prev];
+                    });
+                }
+            } catch (e) {
+                console.error("Failed to load history:", e);
+            }
+        };
+        loadHistory();
+    }, []);
 
     // UI State
     const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(true);

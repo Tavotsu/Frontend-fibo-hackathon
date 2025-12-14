@@ -1,4 +1,5 @@
 import { BriaFiboPayload, GeneratedImage, JobStatusResponse } from "../types";
+import { authService } from "./authService";
 
 // Backend URL - cambiar a ngrok cuando se despliegue
 const API_BASE_URL = "http://localhost:8000";
@@ -141,6 +142,9 @@ export const startGenerationProcess = async (
     throw new Error("Conexión fallida con Bria Fibo. Verifique que el túnel de Ngrok esté activo y sea accesible.");
   }
 
+  const token = authService.getToken();
+  const authHeaders = token ? { 'Authorization': `Bearer ${token}` } : {};
+
   // 2. Prepare Form Data
   onProgress({ stage: 'BRIA_SP_REQUEST', progress: 10, events: ['Processing input data...'] });
   const formData = new FormData();
@@ -167,6 +171,7 @@ export const startGenerationProcess = async (
       method: 'POST',
       headers: {
         'ngrok-skip-browser-warning': '1',
+        ...authHeaders
       },
       body: formData,
     });
@@ -189,6 +194,7 @@ export const startGenerationProcess = async (
         const res = await fetch(`${cleanUrl}/api/v1/jobs/${job_id}`, {
           headers: {
             'ngrok-skip-browser-warning': '1',
+            ...authHeaders
           },
         });
         if (!res.ok) {
@@ -260,4 +266,58 @@ export const startGenerationProcess = async (
 
     poll();
   });
+};
+
+/**
+ * Fetch user's generation history
+ */
+export const fetchUserHistory = async (): Promise<GeneratedImage[]> => {
+  const cleanUrl = API_BASE_URL.replace(/\/$/, "");
+  const token = authService.getToken();
+
+  if (!token) return [];
+
+  try {
+    const res = await fetch(`${cleanUrl}/api/v1/plans`, {
+      headers: {
+        'ngrok-skip-browser-warning': '1',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!res.ok) return [];
+
+    const plans = await res.json();
+    const images: GeneratedImage[] = [];
+
+    // Flatten plans into images
+    // Assuming plans structure matches Backend schema
+    for (const plan of plans) {
+      if (plan.status === 'completed' && plan.proposed_variations) {
+        for (const variation of plan.proposed_variations) {
+          if (variation.generated_image_url) {
+            // Use fetchSecureImage logic if possible, or just build object
+            // We need to resolve the URL if it's relative? Backend returns absolute usually or relative to storage
+            // For now we assume they are usable URLs
+
+            // IMPORTANT: Reuse fetchSecureImage to handle ngrok/proxy logic if needed
+            // But fetchSecureImage expects a string.
+
+            const secureUrl = await fetchSecureImage(variation.generated_image_url);
+            if (secureUrl) {
+              images.push({
+                id: plan._id || plan.id || crypto.randomUUID(), // Use plan ID or generate one
+                url: secureUrl,
+                prompt_used: variation.bria_parameters?.prompt || "History Image"
+              });
+            }
+          }
+        }
+      }
+    }
+    return images;
+  } catch (error) {
+    console.error("Failed to fetch history:", error);
+    return [];
+  }
 };
