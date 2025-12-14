@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PanelLeftClose, PanelLeftOpen, Cpu, Layers, Send, Loader2, AlertCircle, ChevronLeft } from 'lucide-react';
 import { Button } from '../../atoms/actions/Button';
 import { Textarea } from '../../atoms/inputs/Textarea';
@@ -42,6 +43,7 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
     isProcessing, error, onSubmit,
     showToggle = true
 }) => {
+    const navigate = useNavigate();
     return (
         <>
             {/* Overlay para móvil */}
@@ -173,6 +175,14 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                                     <Send className="w-4 h-4" /> Generar Render
                                 </span>
                             )}
+                        </Button>
+
+                        <Button
+                            variant="ghost"
+                            onClick={() => navigate('/')}
+                            className="w-full mt-2 text-xs text-zinc-500 hover:text-zinc-300 h-8"
+                        >
+                            Volver al Inicio
                         </Button>
                     </div>
                     {/* Mobile Swipe Indicator Handle */}
