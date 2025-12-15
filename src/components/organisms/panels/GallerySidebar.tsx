@@ -52,7 +52,7 @@ export const GallerySidebar: React.FC<GallerySidebarProps> = ({
                         text-zinc-400 hover:text-white 
                         z-50 transition-colors
                     "
-                        title={isOpen ? "Ocultar galería" : "Mostrar galería"}
+                        title={isOpen ? "Hide gallery" : "Show gallery"}
                     >
                         {isOpen ? <PanelRightClose className="w-4 h-4" /> : <PanelRightOpen className="w-4 h-4" />}
                     </button>
@@ -61,7 +61,7 @@ export const GallerySidebar: React.FC<GallerySidebarProps> = ({
                 <div className={`${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible w-0'} transition-all duration-200 flex flex-col h-full overflow-hidden`}>
                     <div className="p-4 border-b border-zinc-800">
                         <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest block text-center">
-                            Galería
+                            Gallery
                         </span>
                     </div>
                     <div className="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar flex flex-col">

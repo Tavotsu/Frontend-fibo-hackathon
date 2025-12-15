@@ -93,7 +93,7 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                             <img src={logoMain} alt="BrandLab Logo" className="w-8 h-8 object-contain" />
                             <div>
                                 <h1 className="font-bold text-lg leading-none tracking-tight">BrandLab</h1>
-                                <p className="text-[10px] text-zinc-400 font-medium tracking-wide">Modelo 0.1a</p>
+                                <p className="text-[10px] text-zinc-400 font-medium tracking-wide">Model 0.1a</p>
                             </div>
                         </div>
 
@@ -124,7 +124,7 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                                 Creative Prompt
                             </label>
                             <Textarea
-                                placeholder="Describe tu visión para la imagen de marketing..."
+                                placeholder="Describe your vision for the marketing image..."
                                 className="min-h-[100px] resize-none bg-zinc-950/50 border-zinc-800 focus:border-primary/50 transition-colors placeholder:text-zinc-400 dark:placeholder:text-zinc-600"
                                 value={prompt}
                                 onChange={(e) => setPrompt(e.target.value)}
@@ -167,11 +167,11 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                             {isProcessing ? (
                                 <span className="flex items-center gap-2">
                                     <Loader2 className="h-4 w-4 animate-spin" />
-                                    Iniciando...
+                                    Starting...
                                 </span>
                             ) : (
                                 <span className="flex items-center gap-2">
-                                    <Send className="w-4 h-4" /> Generar Render
+                                    <Send className="w-4 h-4" /> Generate Render
                                 </span>
                             )}
                         </Button>
@@ -181,7 +181,7 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                             onClick={() => navigate('/')}
                             className="w-full mt-2 text-xs text-zinc-500 hover:text-zinc-300 h-8"
                         >
-                            Volver al Inicio
+                            Back to Home
                         </Button>
                     </div>
                     {/* Mobile Swipe Indicator Handle */}

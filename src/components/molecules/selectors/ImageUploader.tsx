@@ -76,8 +76,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelected, s
     >
       <label htmlFor="image-upload" className="flex flex-col items-center justify-center w-full h-full cursor-pointer p-4 text-center">
         <ImageIcon className="w-6 h-6 mb-2 text-muted-foreground" />
-        <p className="text-xs text-muted-foreground font-medium">Subir Referencia</p>
-        <p className="text-[10px] text-muted-foreground/60 mt-1">Arrastra o Click</p>
+        <p className="text-xs text-muted-foreground font-medium">Upload Reference</p>
+        <p className="text-[10px] text-muted-foreground/60 mt-1">Drag or click</p>
         <input id="image-upload" type="file" className="hidden" accept="image/*" onChange={onFileInput} />
       </label>
     </div>
