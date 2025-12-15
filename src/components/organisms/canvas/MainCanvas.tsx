@@ -28,7 +28,27 @@ export const MainCanvas: React.FC<MainCanvasProps> = ({ isProcessing, jobStatus,
                 <StatusIndicator isProcessing={isProcessing} activeImage={activeImage} />
 
                 {activeImage && !isProcessing && (
-                    <Button variant="outline" size="sm" className="gap-1.5 md:gap-2 h-7 md:h-8 text-xs md:text-sm px-2 md:px-3 border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={async () => {
+                            try {
+                                const response = await fetch(activeImage.url);
+                                const blob = await response.blob();
+                                const url = window.URL.createObjectURL(blob);
+                                const link = document.createElement('a');
+                                link.href = url;
+                                link.download = `generated-image-${Date.now()}.png`;
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                                window.URL.revokeObjectURL(url);
+                            } catch (error) {
+                                console.error('Error downloading image:', error);
+                            }
+                        }}
+                        className="gap-1.5 md:gap-2 h-7 md:h-8 text-xs md:text-sm px-2 md:px-3 border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
+                    >
                         <Download className="w-3 h-3 md:w-3.5 md:h-3.5" />
                         <span className="hidden sm:inline">Export HD</span>
                         <span className="sm:hidden">Export</span>
