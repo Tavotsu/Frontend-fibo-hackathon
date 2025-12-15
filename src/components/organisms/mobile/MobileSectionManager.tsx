@@ -68,7 +68,7 @@ export const MobileSectionManager: React.FC = () => {
         <div className="w-full h-screen overflow-hidden relative" {...swipeHandlers}>
             {/* Slider Container: 200% width for 2 screens side-by-side */}
             <div
-                className="w-[200%] h-full flex transition-transform duration-300 ease-out"
+                className="w-[200%] h-full flex transition-transform duration-200 ease-out"
                 style={{
                     transform: activeSection === 'login' ? 'translateX(-50%)' : 'translateX(0)'
                 }}
