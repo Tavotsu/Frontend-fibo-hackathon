@@ -47,7 +47,7 @@ export const ForgotPasswordContent: React.FC<ForgotPasswordContentProps> = ({
                             <Key className="w-6 h-6 text-white" />
                         </div>
                         <h2 className="text-2xl font-bold text-white tracking-tight">Reset Password</h2>
-                        <p className="text-zinc-400 text-sm mt-1 text-center">Enter your email and we'll send you instructions to reset your password.</p>
+                        <p className="text-zinc-400 text-sm mt-1 text-center">Enter your email and we will send you instructions to reset your password.</p>
                     </div>
 
                     <form onSubmit={handleReset} className="space-y-4">

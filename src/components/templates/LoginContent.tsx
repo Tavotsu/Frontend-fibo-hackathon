@@ -40,11 +40,11 @@ export const LoginContent: React.FC<LoginContentProps> = ({
             console.error("Login failed:", err);
             const msg = err.message || "";
             if (msg.includes("Email not confirmed")) {
-                setError("Falta confirmación de correo electrónico. Revisa tu bandeja de entrada.");
+                setError("Email confirmation missing. Check your inbox.");
             } else if (msg.includes("Invalid login credentials")) {
-                setError("Credenciales incorrectas.");
+                setError("Invalid credentials.");
             } else {
-                setError("Error al iniciar sesión. Inténtalo de nuevo.");
+                setError("Login failed. Please try again.");
             }
         } finally {
             setIsLoading(false);

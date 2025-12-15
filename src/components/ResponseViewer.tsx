@@ -2,7 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { FileText, Database, Terminal } from 'lucide-react';
 import { BriaFiboResponse } from '../types';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
+import { Card, CardContent, CardHeader, CardTitle } from './atoms/layout/Card';
 
 interface ResponseViewerProps {
   response: BriaFiboResponse | null;

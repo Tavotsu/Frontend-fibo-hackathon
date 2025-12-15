@@ -30,8 +30,8 @@ export const MainCanvas: React.FC<MainCanvasProps> = ({ isProcessing, jobStatus,
                 {activeImage && !isProcessing && (
                     <Button variant="outline" size="sm" className="gap-1.5 md:gap-2 h-7 md:h-8 text-xs md:text-sm px-2 md:px-3 border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
                         <Download className="w-3 h-3 md:w-3.5 md:h-3.5" />
-                        <span className="hidden sm:inline">Exportar HD</span>
-                        <span className="sm:hidden">Exportar</span>
+                        <span className="hidden sm:inline">Export HD</span>
+                        <span className="sm:hidden">Export</span>
                     </Button>
                 )}
             </div>
@@ -57,14 +57,14 @@ export const MainCanvas: React.FC<MainCanvasProps> = ({ isProcessing, jobStatus,
                                 <Loader2 className="w-10 h-10 md:w-12 md:h-12 text-primary animate-spin relative z-10" />
                             </div>
                             <div className="text-center">
-                                <h3 className="text-base md:text-lg font-semibold text-zinc-900 dark:text-white tracking-tight">Generando Assets</h3>
-                                <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400">El modelo está interpretando tu prompt...</p>
+                                <h3 className="text-base md:text-lg font-semibold text-zinc-900 dark:text-white tracking-tight">Generating Assets</h3>
+                                <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400">The model is interpreting your prompt...</p>
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <div className="flex justify-between text-[10px] md:text-xs uppercase tracking-wider font-bold text-zinc-500">
-                                <span>Progreso del Job</span>
+                                <span>Job Progress</span>
                                 <span>{jobStatus ? Math.round(jobStatus.progress) : 0}%</span>
                             </div>
                             <div className="h-2 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
@@ -99,7 +99,7 @@ export const MainCanvas: React.FC<MainCanvasProps> = ({ isProcessing, jobStatus,
                                     );
                                 })}
                                 {(!jobStatus || !jobStatus.events || jobStatus.events.length === 0) && (
-                                    <span className="text-zinc-400 dark:text-zinc-700 italic text-[9px] md:text-[10px]">Esperando conexión al servidor...</span>
+                                    <span className="text-zinc-400 dark:text-zinc-700 italic text-[9px] md:text-[10px]">Waiting for server connection...</span>
                                 )}
                                 <div ref={logsEndRef} />
                             </div>
@@ -122,8 +122,8 @@ export const MainCanvas: React.FC<MainCanvasProps> = ({ isProcessing, jobStatus,
                         <div className="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full border-4 border-dashed border-zinc-300 dark:border-zinc-700 flex items-center justify-center">
                             <Maximize2 className="w-10 h-10 md:w-12 md:h-12 text-zinc-400 dark:text-zinc-700" />
                         </div>
-                        <p className="text-lg md:text-xl font-medium text-zinc-400 dark:text-zinc-500">El canvas está vacío</p>
-                        <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-600 px-4">Configura los parámetros a la izquierda para comenzar</p>
+                        <p className="text-lg md:text-xl font-medium text-zinc-400 dark:text-zinc-500">The canvas is empty</p>
+                        <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-600 px-4">Configure parameters on the left to start</p>
                     </div>
                 )}
             </div>

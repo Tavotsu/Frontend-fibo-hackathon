@@ -23,14 +23,14 @@ export const SignUpContent: React.FC<SignUpContentProps> = ({
 
     const validateForm = () => {
         if (fullName.length < 4) {
-            setError("El nombre debe tener al menos 4 caracteres.");
+            setError("Name must be at least 4 characters long.");
             return false;
         }
 
         // 8 chars, 1 number, 1 lowercase, 1 special char
         const passwordRegex = /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
         if (!passwordRegex.test(password)) {
-            setError("La contraseña debe tener al menos 8 caracteres, una minúscula, un número y un carácter especial.");
+            setError("Password must have at least 8 characters, one lowercase, one number, and one special character.");
             return false;
         }
 
