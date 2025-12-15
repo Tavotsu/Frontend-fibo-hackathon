@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logoMain from '../../../assets/logo-main.png';
 import { ArrowRight, Aperture, Youtube, Zap, Monitor, ChevronLeft } from 'lucide-react';
 import { Button } from '../atoms/actions/Button';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -36,7 +37,7 @@ export const LandingContent: React.FC<LandingContentProps> = ({
             {/* Navbar */}
             <nav className="relative z-10 w-full px-6 py-6 flex items-center justify-between max-w-7xl mx-auto">
                 <div className="flex items-center gap-2">
-                    <img src="/src/assets/logo-main.png" alt="BrandLab Logo" className="w-10 h-10 object-contain drop-shadow-lg" />
+                    <img src={logoMain} alt="BrandLab Logo" className="w-10 h-10 object-contain drop-shadow-lg" />
                     <span className="font-bold text-xl tracking-tight text-white">BrandLab</span>
                 </div>
                 <div className="flex items-center gap-4 hidden md:flex">

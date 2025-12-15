@@ -1,4 +1,5 @@
 import React from 'react';
+import logoMain from '../../../assets/logo-main.png';
 import { useNavigate } from 'react-router-dom';
 import { PanelLeftClose, PanelLeftOpen, Cpu, Layers, Send, Loader2, AlertCircle, ChevronLeft } from 'lucide-react';
 import { Button } from '../../atoms/actions/Button';
@@ -89,7 +90,7 @@ export const SidebarControls: React.FC<SidebarControlsProps> = ({
                     {/* Header */}
                     <div className="p-5 border-b border-zinc-800 dark:border-zinc-800 flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
-                            <img src="/src/assets/logo-main.png" alt="BrandLab Logo" className="w-8 h-8 object-contain" />
+                            <img src={logoMain} alt="BrandLab Logo" className="w-8 h-8 object-contain" />
                             <div>
                                 <h1 className="font-bold text-lg leading-none tracking-tight">BrandLab</h1>
                                 <p className="text-[10px] text-zinc-400 font-medium tracking-wide">Modelo 0.1a</p>
