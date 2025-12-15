@@ -36,9 +36,7 @@ export const LandingContent: React.FC<LandingContentProps> = ({
             {/* Navbar */}
             <nav className="relative z-10 w-full px-6 py-6 flex items-center justify-between max-w-7xl mx-auto">
                 <div className="flex items-center gap-2">
-                    <div className="p-2 bg-gradient-to-br from-blue-600 to-blue-500 rounded-lg shadow-lg shadow-blue-500/20">
-                        <Aperture className="w-6 h-6 text-white" />
-                    </div>
+                    <img src="/src/assets/logo-main.png" alt="BrandLab Logo" className="w-10 h-10 object-contain drop-shadow-lg" />
                     <span className="font-bold text-xl tracking-tight text-white">BrandLab</span>
                 </div>
                 <div className="flex items-center gap-4 hidden md:flex">

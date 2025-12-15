@@ -44,25 +44,7 @@ export const HomePage: React.FC = () => {
         loadHistory();
     }, []);
 
-    // Initial History Load
-    useEffect(() => {
-        const loadHistory = async () => {
-            try {
-                const history = await fetchUserHistory();
-                if (history && history.length > 0) {
-                    setGeneratedImages(prev => {
-                        // Avoid duplicates if React Strict Mode runs twice
-                        const existingIds = new Set(prev.map(img => img.id));
-                        const newImages = history.filter(img => !existingIds.has(img.id));
-                        return [...newImages, ...prev];
-                    });
-                }
-            } catch (e) {
-                console.error("Failed to load history:", e);
-            }
-        };
-        loadHistory();
-    }, []);
+
 
     // UI State
     const [isLeftSidebarOpen, setIsLeftSidebarOpen] = useState(true);
@@ -166,7 +148,11 @@ export const HomePage: React.FC = () => {
 
             console.log('[BrandLab App] Generation results:', results);
             if (results && results.length > 0) {
-                setGeneratedImages(prev => [...results, ...prev]);
+                setGeneratedImages(prev => {
+                    const existingIds = new Set(prev.map(img => img.id));
+                    const newImages = results.filter((img: GeneratedImage) => !existingIds.has(img.id));
+                    return [...newImages, ...prev];
+                });
                 setActiveImageId(results[0].id);
             }
         } catch (err: any) {
