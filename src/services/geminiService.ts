@@ -128,7 +128,7 @@ export const startGenerationProcess = async (
   });
 
   const cleanUrl = API_BASE_URL.replace(/\/$/, "");
-  console.log('[Marketech] API URL:', cleanUrl);
+  console.log('[Marketech] API URL:');
 
   // 1. Health Check
   onProgress({ stage: 'BRIA_SP_REQUEST', progress: 5, events: [`Connecting to secure backend...`] });
@@ -163,7 +163,7 @@ export const startGenerationProcess = async (
 
   // 3. Start Generation
   onProgress({ stage: 'BRIA_SP_REQUEST', progress: 20, events: ['Sending secure payload...'] });
-  console.log('[Marketech] Sending generation request to:', `${cleanUrl}/api/v1/generate-async`);
+  console.log('[Marketech] Sending generation request to:', `/api/v1/generate-async`);
 
   let job_id: string;
   try {
@@ -306,7 +306,7 @@ export const fetchUserHistory = async (): Promise<GeneratedImage[]> => {
             const secureUrl = await fetchSecureImage(variation.generated_image_url);
             if (secureUrl) {
               images.push({
-                id: plan._id || plan.id || crypto.randomUUID(), // Use plan ID or generate one
+                id: variation.id || crypto.randomUUID(), // Use variation ID if available, otherwise distinct UUID
                 url: secureUrl,
                 prompt_used: variation.bria_parameters?.prompt || "History Image"
               });

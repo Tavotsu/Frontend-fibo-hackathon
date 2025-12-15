@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logoMain from '../../../assets/logo-main.png';
+import logoMain from '../../assets/logo-main.png';
 import { ArrowRight, Aperture, Youtube, Zap, Monitor, ChevronLeft } from 'lucide-react';
 import { Button } from '../atoms/actions/Button';
 import { useTheme } from '../../contexts/ThemeContext';
