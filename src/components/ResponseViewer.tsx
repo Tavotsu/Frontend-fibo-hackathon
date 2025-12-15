@@ -34,7 +34,7 @@ export const ResponseViewer: React.FC<ResponseViewerProps> = ({ response, isLoad
         <CardHeader className="bg-muted/30 pb-4">
           <div className="flex items-center space-x-2">
             <Terminal className="w-5 h-5 text-primary" />
-            <CardTitle className="text-lg">Respuesta del Modelo</CardTitle>
+            <CardTitle className="text-lg">Model Response</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="pt-6 prose prose-slate dark:prose-invert max-w-none">
