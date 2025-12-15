@@ -2,7 +2,7 @@ import { BriaFiboPayload, GeneratedImage, JobStatusResponse } from "../types";
 import { authService } from "./authService";
 
 // Backend URL - cambiar a ngrok cuando se despliegue
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 /**
  * Utility to convert Base64 string to Blob for FormData
