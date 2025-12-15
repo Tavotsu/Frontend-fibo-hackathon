@@ -10,7 +10,7 @@ export const QuantitySelector: React.FC<QuantitySelectorProps> = ({ quantity, se
     return (
         <div className="space-y-3">
             <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
-                Cantidad de Variaciones
+                Variations
             </label>
             <div className="flex gap-2">
                 {[1, 2, 3, 4].map((num) => (
